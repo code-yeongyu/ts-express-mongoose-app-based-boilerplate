@@ -20,6 +20,7 @@
     "express-validator": "^6.6.1",
     "mongoose": "^5.10.11",
     "morgan": "^1.10.0",
+    "openapi-types": "^7.0.1",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
