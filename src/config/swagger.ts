@@ -1,3 +1,5 @@
+import env from './env'
+
 const swaggerDefinition = {
     info: {
         title: 'TS-EXPRESS-MONGOOSE-USER-BOILERPLATE',
@@ -19,7 +21,7 @@ const swaggerDefinition = {
 
 const options = {
     swaggerDefinition,
-    apis: ['./src/routes/*.ts']
+    apis: [`./${process.env.NODE_PATH}app/*/routes.ts`]
 };
 
 export default options
