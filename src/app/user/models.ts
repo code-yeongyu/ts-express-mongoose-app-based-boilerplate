@@ -12,4 +12,4 @@ const userSchema: Schema<UserModel> = new Schema({
 
 userSchema.index({ username: 1 })
 
-export default model<UserModel>("User", userSchema)
+export const User = model<UserModel>("User", userSchema)

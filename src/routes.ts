@@ -1,8 +1,8 @@
+import userRouter from 'app/user/routes'
 import { Router } from 'express'
-import { default as UserRouter } from './user'
 
 const router = Router()
 
-router.use('/user', UserRouter)
+router.use('/user', userRouter)
 
 export default router

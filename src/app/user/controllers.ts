@@ -2,7 +2,7 @@ import { Request, Response } from "express"
 import passport from "passport"
 import jwt from "jsonwebtoken"
 import { ErrorType } from "errors"
-import { User } from "models"
+import { User } from "./models"
 import getErrorMessage from "utils/errors"
 import { createHashedPassword } from "utils/user"
 

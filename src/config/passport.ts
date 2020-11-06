@@ -2,7 +2,7 @@ import passport from 'passport'
 import { Strategy as JWTStrategy, ExtractJwt as ExtractJWT } from 'passport-jwt'
 import { Strategy as LocalStrategy } from 'passport-local'
 
-import { User } from 'models'
+import { User } from 'app/user/models'
 import env from 'config/env'
 import { checkPassword } from 'utils/user'
 

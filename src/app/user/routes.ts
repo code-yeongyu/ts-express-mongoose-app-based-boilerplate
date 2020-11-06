@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { body } from 'express-validator'
-import { register, createToken } from 'controllers/user'
+import { register, createToken } from 'app/user/controllers'
 import { validationResultChecker } from 'middlewares'
 
 const router = Router()
