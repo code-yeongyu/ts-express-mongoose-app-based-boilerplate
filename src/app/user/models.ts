@@ -1,4 +1,4 @@
-import { Schema, model, Document } from 'mongoose'
+import { Schema, model, Document } from "mongoose"
 
 export interface UserModel extends Document {
     username: string
@@ -7,7 +7,7 @@ export interface UserModel extends Document {
 
 const userSchema: Schema<UserModel> = new Schema({
     username: { type: String, required: true, unique: true },
-    password: { type: String, required: true }
+    password: { type: String, required: true },
 })
 
 userSchema.index({ username: 1 })
