@@ -1,5 +1,3 @@
-import env from "./env"
-
 const swaggerDefinition = {
     info: {
         title: "TS-EXPRESS-MONGOOSE-USER-BOILERPLATE",
