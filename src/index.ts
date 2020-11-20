@@ -11,9 +11,9 @@ import swaggerOptions from "config/swagger"
 import passportConfig from "config/passport"
 import { ErrorType, errorMessages } from "errors"
 import routes from "routes"
+import connectDB from "config/connectDB"
+connectDB()
 
-require("config/connectDB")
-//DB
 
 const app = express()
 const swaggerSpec = swaggerJSDoc(swaggerOptions)
