@@ -7,7 +7,7 @@ const createHashedPassword = (password: string) => {
     return hashedPassword
 }
 
-const checkPassword = async (password: string, hashedPassword: string) => {
+const checkPassword = (password: string, hashedPassword: string) => {
     const isPasswordCorrect = compareSync(password, hashedPassword) // hash.toString for type checking hack
     return isPasswordCorrect
 }
