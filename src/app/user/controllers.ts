@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { authenticate } from "passport"
+import passport from "passport"
 import jwt from "jsonwebtoken"
 import { ErrorType } from "errors"
 import { User } from "./models"
@@ -9,7 +9,6 @@ import { createHashedPassword } from "utils/user"
 const register = async (req: Request, res: Response) => {
     const { username, password } = req.body
     const hashedPassword = createHashedPassword(password)
-
     const isExistingUser = await User.exists({ username: username })
 
     if (isExistingUser) {
@@ -51,8 +50,12 @@ const createToken = (req: Request, res: Response) => {
             return res.json({ user, token }).send()
         })
     }
-    const auth = authenticate("local", { session: false }, authCallback)
-    auth()
+    const auth = passport.authenticate(
+        "local",
+        { session: false },
+        authCallback
+    )
+    auth(req, res)
 }
 
 export { register, createToken }
