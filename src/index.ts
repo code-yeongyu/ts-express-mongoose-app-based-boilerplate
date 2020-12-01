@@ -9,7 +9,6 @@ connectDB()
 
 import app from "app"
 
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec))
 app.get("/custom-errors", (req: express.Request, res: express.Response) => {
     res.json({
         errorTypes: ErrorType,
