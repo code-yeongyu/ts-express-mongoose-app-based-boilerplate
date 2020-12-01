@@ -4,12 +4,14 @@ import mongoose from "mongoose"
 import app from "app"
 import { User } from "app/user/models"
 import connectDB from "config/connectDB"
+import getErrorMessage from "utils/errors"
+import { ErrorType } from "errors"
 
 const username = "testaccount"
 const password = "testpassword"
 
-describe("User", () => {
-    before(async () => {
+describe("User", async function () {
+    before(async function () {
         connectDB()
         await User.deleteMany({}, () => {})
     })
@@ -28,14 +30,36 @@ describe("User", () => {
         })
 
         describe("Failure Case", async function () {
-            it("Duplicate User", async () => {
-                await request(app)
+            it("No username", async function () {
+                const response = await request(app)
                     .post("/user/register")
                     .send({
-                        username: username,
-                        password: password,
+                        username: "testaccount",
                     })
                     .expect(400)
+                const { errorType } = JSON.parse(response.text)
+                assert.strictEqual(errorType, ErrorType.ValidationError)
+            })
+            it("No password", async function () {
+                const response = await request(app)
+                    .post("/user/register")
+                    .send({
+                        password: "testpassword1234",
+                    })
+                    .expect(400)
+                const { errorType } = JSON.parse(response.text)
+                assert.strictEqual(errorType, ErrorType.ValidationError)
+            })
+            it("User Duplicates", async function () {
+                const response = await request(app)
+                    .post("/user/register")
+                    .send({
+                        username: "testaccount",
+                        password: "testpassword1234",
+                    })
+                    .expect(400)
+                const { errorType } = JSON.parse(response.text)
+                assert.strictEqual(errorType, ErrorType.UserExists)
             })
         })
     })
@@ -43,24 +67,26 @@ describe("User", () => {
     describe("Authentication", function () {
         describe("Success Case", async function () {
             it("Proper Information", async function () {
-                const res = await request(app).post("/user/auth/token").send({
-                    username: username,
-                    password: password,
-                })
-                const data = JSON.parse(res.text)
+                const response = await request(app)
+                    .post("/user/auth/token")
+                    .send({
+                        username: username,
+                        password: password,
+                    })
+                const data = JSON.parse(response.text)
                 assert.strictEqual(username, data.user.username)
             })
         })
 
         describe("Failure Case", async function () {
             it("Wrong Username", async function () {
-                await request(app)
+                const response = await request(app)
                     .post("/user/auth/token")
                     .send({
                         username: "wrongusername",
-                        password: password,
+                        password: "wrongpassword",
                     })
-                    .expect(400)
+                    .expect(400, getErrorMessage(ErrorType.LoginFailed))
             })
             it("Wrong Password", async function () {
                 await request(app)
@@ -69,12 +95,12 @@ describe("User", () => {
                         username: username,
                         password: "wrongpassword",
                     })
-                    .expect(400)
+                    .expect(400, getErrorMessage(ErrorType.LoginFailed))
             })
         })
     })
 
-    after(async () => {
+    after(async function () {
         await User.deleteMany({}, () => {})
         await mongoose.disconnect()
     })
