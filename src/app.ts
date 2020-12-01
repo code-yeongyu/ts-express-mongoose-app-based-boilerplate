@@ -9,7 +9,11 @@ passportConfig()
 
 const app = express()
 app.use(bodyParser.json())
-app.use(morgan("combined"))
+
+if (process.env.NODE_ENV !== "test") {
+    app.use(morgan("combined"))
+}
+
 app.use(passport.initialize())
 app.use("", routes)
 
