@@ -3443,7 +3443,7 @@ swagger-ui-express@^4.1.4:
     swagger-ui-dist "^3.18.1"
 
 systeminformation@^4.23.3:
-  version "4.30.6"
+  version "4.33.6"
   resolved "https://registry.yarnpkg.com/systeminformation/-/systeminformation-4.30.6.tgz#b56074968f2ea28ac118f23221c449b0f763db22"
   integrity sha512-NV7zo9NU7fWSuiCORZmMLe90cFrrTS6jfalrQ0/5B7JGQ2ei15c2gmfICBwWdmviyv/FXAFVReySxOtDDkppqw==
 
